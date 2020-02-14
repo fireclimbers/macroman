@@ -10,15 +10,12 @@ Based on [this recipe](https://www.budgetbytes.com/slow-cooker-white-chicken-chi
 * 2 cloves garlic
 * 1 jalapeño
 * 1 boneless skinless chicken breast (0.75 lb)
-
 * 2 15 oz. cans cannellini beans
 * 1 15 oz. can pinto beans
-
 * 1 Tbsp ground cumin
 * 1 tsp dried oregano
 * 1/4 tsp cayenne pepper
 * 1/4 tsp black pepper
-
 * 16 oz. salsa verde
 * 2 cups (1 can) chicken broth
 * 4 oz shredded cheese
