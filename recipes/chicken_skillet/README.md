@@ -2,6 +2,9 @@
 
 Based on [this recipe](https://www.budgetbytes.com/southwest-chicken-skillet/)
 
+### 4 servings
+520 cal / 37g protein / 13g fat / 62g carbs
+
 ### Ingredients
 * 1 cup uncooked long grain white rice
 * 1 cup salsa
@@ -13,12 +16,7 @@ Based on [this recipe](https://www.budgetbytes.com/southwest-chicken-skillet/)
 * 1 Tbsp chili powder
 * 1/2 teaspoon oregano
 
-
-Batch total 2450 175.8/61.2/292.2
-
-4 servings
-~615 44/15/73
-
+### Steps
 1. Wash rice
 1. Drain black beans
 1. Slice onion
@@ -29,4 +27,3 @@ Batch total 2450 175.8/61.2/292.2
 1. Turn off heat, keep lid on, let it rest for 5 min
 1. Remove lid, fluff with fork
 1. Sprinkle cheese over, place lid, let sit for a few min
-
