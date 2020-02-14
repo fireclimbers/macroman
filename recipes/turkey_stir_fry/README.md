@@ -26,7 +26,7 @@ Based on [this recipe](https://www.budgetbytes.com/ground-turkey-stir-fry/)
 1. Dice bell peppers and green onions
 1. Mix soy sauce, toasted sesame oil, brown sugar, chili garlic sauce, water in a bowl
 1. Start boiling water in prep for noodles
-1. Skillet at med heat
+1. Skillet over med heat
 1. Add olive oil, garlic, turkey. Stir and cook 8-10 min
 1. Add bell peppers and green onions. Stir and cook 2 min
 1. Add spinach. Stir and cook 1 min
