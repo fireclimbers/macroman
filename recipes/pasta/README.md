@@ -1,45 +1,34 @@
-marinara beef pasta
+# Pasta
 
-0.5 lb beef 90%
-6 oz pasta
-6 oz broccoli
-2 cans diced tomatoes
-1 tbsp olive oil
-2 tbsp butter
-1/2 onion
-50g parmesan
+Based on [this recipe](https://www.budgetbytes.com/the-best-weeknight-pasta-sauce/)
 
+### 3 servings
+560 cal / 30g protein / 21g fat / 62g carbs
 
+### Ingredients
+* 0.5 lb beef (90% lean 10% fat)
+* 6 oz pasta
+* 6 oz broccoli
+* 2 15 oz cans diced tomatoes
+* 1 tbsp olive oil
+* 1.5 tbsp butter
+* 1/2 onion
+* ~25g parmesan
+* salt/pepper
+* 1/2 tsp italian seasoning
 
-#1 lb beef 90% (800 88/44/0)
-#12 oz broccoli (100 12/0/16)
-#8 oz pasta (800 28/2/164)
-#2 tbsp olive oil (480 0/56/0)
-#1 tbsp butter (100 0/11/0)
-#1/2 onion (65 1.8/0.2/15)
-#2 14.5 oz can diced tomatoes (196 6/0/38)
-#25g parmesan (12.5g per serving) (100 10/7.5/0)
-salt/pepper
-1/2 tsp italian seasoning
-
-600 per serving
-
-
-boil broccoli ~2 min
-
-get ground beef and olive oil
-	saute over medium about 5 min
-dice 1/2 onion and portion butter
-	saute for another 5 min
-open tomato cans, italian seasoning, 10-15 cranks of pepper
-	stir
-	place lid and allow to simmer
-	once simmering, reduce heat to low and let simmer for 30 min
-
-start boiling and salt water (15 min to boil)
-add pasta (~12 min for al dente)
-save ~1 cup pasta water
-
-add ~1/2 tsp salt (like 40 cranks), stir, then add to taste
-add broccoli
-add pasta, stir, then pasta water
+### Steps
+1. Boil broccoli 1-2 min
+1. Dice onion
+1. Skillet over med heat
+1. Add beef and olive oil, saute about 5 min
+1. Add onion and butter, saute another 5 min
+1. Add diced tomatoes, italian seasoning, pepper. Stir
+1. Place lid and let simmer
+1. Reduce heat to low and let simmer for 30 min
+1. Start boiling and salt water (15 min to boil)
+1. Add pasta to boiling water (~12 min for al dente)
+1. Save ~1 cup pasta water to add to sauce
+1. Add ~1/2 tsp salt to sauce, stir, then add to taste
+1. Add broccoli to sauce
+1. Add pasta and pasta water. Stir
