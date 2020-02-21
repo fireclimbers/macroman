@@ -30,5 +30,5 @@ Based on [this recipe](https://www.budgetbytes.com/ground-turkey-stir-fry/)
 1. Add olive oil, garlic, turkey. Stir and cook 8-10 min
 1. Add bell peppers and green onions. Stir and cook 2 min
 1. Add spinach. Stir and cook 1 min
-1. Cook noodles in now boiling water
+1. Cook noodles in now boiling water for 3 min
 1. Add sauce, noodles, and stir
