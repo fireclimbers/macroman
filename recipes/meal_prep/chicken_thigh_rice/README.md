@@ -3,7 +3,7 @@
 Based on [this recipe](https://www.budgetbytes.com/yellow-rice-chicken-skillet/)
 
 ### 4 servings
-? cal / ? protein / ? fat / ? carbs
+593 cal / 33g protein / 32g fat / 40g carbs
 
 ### Ingredients
 * 1 Tbsp vegetable oil
