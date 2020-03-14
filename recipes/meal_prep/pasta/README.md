@@ -27,7 +27,7 @@ Based on [this recipe](https://www.budgetbytes.com/the-best-weeknight-pasta-sauc
 1. Place lid and let simmer
 1. Reduce heat to low and let simmer for 30 min
 1. Start boiling and salt water (15 min to boil)
-1. Add pasta to boiling water (~12 min for al dente)
+1. Add pasta to boiling water (~12 min for rigatoni al dente, ~14 min for bow tie al dente)
 1. Save ~1 cup pasta water to add to sauce
 1. Add ~1/2 tsp salt to sauce, stir, then add to taste
 1. Add broccoli to sauce
