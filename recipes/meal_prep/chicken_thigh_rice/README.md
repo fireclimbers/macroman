@@ -15,7 +15,7 @@ Based on [this recipe](https://www.budgetbytes.com/yellow-rice-chicken-skillet/)
 * 1/4 tsp cinnamon
 * 1 cup rice
 * 1 cup frozen peas
-* 1 2/3? cups chicken broth
+* 1 can chicken broth
 
 ### Steps
 1. Pat chicken thighs dry with paper towel
@@ -31,6 +31,7 @@ Based on [this recipe](https://www.budgetbytes.com/yellow-rice-chicken-skillet/)
 1. Add frozen peas and rice, stir
 1. Add thighs in
 1. Place lid and turn heat up to med-high until it comes to a boil
-1. Turn heat to low and let simmer for 25 min
+1. Turn heat to low and let simmer for 15 min
 1. Turn off heat and let sit 10 min
 1. Fluff rice with fork
+1. (Optional) Remove thighs and broil on high for 5 min for that sweet crispy goodness
