@@ -2,11 +2,11 @@
 
 Based on [this recipe](https://www.budgetbytes.com/easy-orange-chicken/)
 
-### 4 servings
+### 5 servings
 #### Just chicken
-390 cal / 35g protein / 20g fat / 15g carbs
-#### W/ brown rice
-580 cal / 42g protein / 25g fat / 47g carbs
+312 cal / 28g protein / 16g fat / 12g carbs
+#### w/ 3 bags brown rice
+540 cal / 36g protein / 21g fat / 50g carbs
 
 ### Ingredients
 #### Sauce
