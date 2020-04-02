@@ -3,7 +3,7 @@
 Based on [this](https://www.budgetbytes.com/spanish-chickpeas-and-rice/) and [this](https://www.budgetbytes.com/herb-roasted-pork-loin/) recipe
 
 ### 4 servings
-? cal - ? protein - ? fat - ? carbs
+566 cal - 35g protein - 18g fat - 66g carbs
 
 ### Ingredients
 #### Pork
