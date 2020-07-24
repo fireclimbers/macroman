@@ -21,7 +21,7 @@ class ItemForm extends React.Component {
   }
   componentDidUpdate(prevProps) {
     console.log('huh', prevProps.editing, this.props.editing);
-    if (prevProps.editing != this.props.editing) {
+    if (prevProps.editing !== this.props.editing) {
       this.setState({
         name: this.props.item.name,
         cals: this.props.item.cals,
@@ -241,6 +241,8 @@ class TodoApp extends React.Component {
     })
   }
   exportJson(e) {
+    if (this.state.items.length === 0) return;
+    this.state.items[0].meal_servings = this.state.servings;
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.state.items));
     //var dlAnchorElem = document.getElementById('downloadAnchorElem');
     var dlAnchorElem = document.createElement("a");
@@ -254,7 +256,8 @@ class TodoApp extends React.Component {
     var obj = JSON.parse(e.target.result);
     console.log(obj);
     this.setState({
-      items: obj
+      items: obj,
+      servings: obj[0].meal_servings || 1
     })
     //alert_data(obj.name, obj.family);
   }
@@ -390,7 +393,24 @@ class TodoApp extends React.Component {
         </DragDropContext>
 
         <div className="columns">
-          <div className="column"></div>
+          <div className="column">
+            <nav className="level">
+              <div className="level-left">
+                <div className="level-item">
+                  <div className="field">
+                    <p className="control">
+                      <input value={this.state.servings} id="servings" onChange={this.handleChange} className="input" type="text" placeholder="Servings"/>
+                    </p>
+                  </div>
+                </div>
+                <div className="level-item">
+                  <p className="subtitle is-5">
+                    {(totalCals/(this.state.servings || 1)).toFixed(2)} per
+                  </p>
+                </div>
+              </div>
+            </nav>
+          </div>
           <div className="column">
             <ItemForm handleSubmit={this.handleSubmit} />
           </div>
@@ -408,9 +428,9 @@ class TodoApp extends React.Component {
               value={this.state.exporttitle} />
           </div>
           <div className="control">
-            <a className="button is-info" onClick={this.exportJson.bind(this)}>
+            <button className="button is-info" onClick={this.exportJson.bind(this)}>
               Export
-            </a>
+            </button>
           </div>
         </div>
         <div className="file">
@@ -426,7 +446,7 @@ class TodoApp extends React.Component {
             </span>
           </label>
         </div>
-        <div className={"modal "+(this.state.editing != -1 ? 'is-active' : '')}>
+        <div className={"modal "+(this.state.editing !== -1 ? 'is-active' : '')}>
           <div className="modal-background"></div>
           <div className="modal-card" style={{width:480}}>
             <header className="modal-card-head">
@@ -434,7 +454,7 @@ class TodoApp extends React.Component {
               <button className="delete" aria-label="close" onClick={() => {this.setState({editing: -1})}}></button>
             </header>
             <section className="modal-card-body">
-              <ItemForm handleSubmit={this.handleEditSubmit} editing={this.state.editing} item={this.state.editing != -1 ? this.state.items[this.state.editing] : {}} />
+              <ItemForm handleSubmit={this.handleEditSubmit} editing={this.state.editing} item={this.state.editing !== -1 ? this.state.items[this.state.editing] : {}} />
             </section>
             {/*<footer className="modal-card-foot">
               <button className="button is-success">Save changes</button>
