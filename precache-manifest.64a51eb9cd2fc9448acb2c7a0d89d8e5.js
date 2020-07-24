@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "481c1ae591e602a0f02f798c98cc5806",
+    "revision": "8f9dfd3bb08082578de5dacf0590587b",
     "url": "/macroman/index.html"
   },
   {
-    "revision": "63e9694e559e5f04f4e5",
+    "revision": "42a17ae86aa2f8062de3",
     "url": "/macroman/static/css/main.34de6062.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/macroman/static/js/2.4f8b12ea.chunk.js"
   },
   {
-    "revision": "63e9694e559e5f04f4e5",
-    "url": "/macroman/static/js/main.e80747f7.chunk.js"
+    "revision": "42a17ae86aa2f8062de3",
+    "url": "/macroman/static/js/main.c1f20859.chunk.js"
   },
   {
     "revision": "04c6cf646ed2153ac028",
