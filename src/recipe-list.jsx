@@ -38,7 +38,7 @@ export default class RecipeList extends React.Component {
       const docRef = await addDoc(collection(this.props.db, "recipes"), newItem);
       //console.log("Document written with ID: ", docRef.id);
       // TODO go to /recipe/<docRef.id>
-      window.location.href = window.location.protocol + "//" + window.location.host + '/recipes/' + docRef.id;
+      window.location.href = window.location.protocol + "//" + window.location.host + '/macroman/recipes/' + docRef.id;
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -72,11 +72,11 @@ export default class RecipeList extends React.Component {
           </div>
         </nav>
 
-        <Link to="/foods">Food index</Link>
+        <Link to="/macroman/foods">Food index</Link>
         <br/><br/><br/>
 
         {this.state.items.map((item,index) => {
-          return <Link key={'link_'+index} to={"/recipes/"+item.id}>{item.name}</Link>
+          return <Link key={'link_'+index} to={"/macroman/recipes/"+item.id}>{item.name}</Link>
         })}
 
       </div>

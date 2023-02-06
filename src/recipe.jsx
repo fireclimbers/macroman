@@ -274,7 +274,7 @@ class RecipeClass extends React.Component {
 
     return (
       <div className="container">
-        <Link to="/">Back</Link>
+        <Link to="/macroman/">Back</Link>
         <p>{this.state.name}</p>
         <nav className="level">
           <div className="level-left">

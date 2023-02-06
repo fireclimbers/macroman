@@ -85,7 +85,7 @@ export default class FoodList extends React.Component {
 
     return (
       <div className="container">
-        <Link to="/">Back</Link>
+        <Link to="/macroman/">Back</Link>
         <table className="table is-fullwidth is-hoverable">
           <thead>
             <tr>
