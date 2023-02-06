@@ -5,7 +5,6 @@ import Recipe from './recipe';
 import RecipeList from './recipe-list';
 import FoodList from './food-list';
 
-import firebaseConfig from './amazy-dayzee';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
