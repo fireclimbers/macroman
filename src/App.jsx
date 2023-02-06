@@ -5,6 +5,7 @@ import Recipe from './recipe';
 import RecipeList from './recipe-list';
 import FoodList from './food-list';
 
+import firebaseConfig from './amazy-dayzee';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
@@ -99,9 +100,9 @@ export default class App extends React.Component {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<RecipeList db={this.state.db}/>} />
-          <Route path="/foods" element={<FoodList db={this.state.db}/>} />
-          <Route path="/recipes/:recipeId" element={<Recipe db={this.state.db} />} />
+          <Route path="/macroman/" element={<RecipeList db={this.state.db}/>} />
+          <Route path="/macroman/foods" element={<FoodList db={this.state.db}/>} />
+          <Route path="/macroman/recipes/:recipeId" element={<Recipe db={this.state.db} />} />
           
           <Route
             path="*"
