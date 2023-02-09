@@ -118,9 +118,11 @@ class RecipeClass extends React.Component {
       id: data.id,
       name: data.name,
       amount: data.amount,
-      volume: data.volume,
       visible: true,
       item: data
+    }
+    if (data.volume !== undefined) {
+      newItem.volume = data.volume;
     }
 
     this.setState(state => ({
@@ -138,13 +140,18 @@ class RecipeClass extends React.Component {
         totalCals += (parseInt(item.item.cals)*(parseInt(item.item.servings)/parseInt(item.item.totalservings))*(parseFloat(item.amount)/parseFloat(item.item.amount)));
       }
 
-      items.push({
+      let saveItem = {
         id:item.id,
         amount:item.amount,
-        volume:item.volume,
         name:item.name,
         visible:item.visible
-      })
+      }
+
+      if (item.volume) {
+        saveItem.volume = item.volume;
+      }
+
+      items.push(saveItem);
     }
     let editedItem = {
       name: this.state.name,
@@ -153,6 +160,7 @@ class RecipeClass extends React.Component {
       totalCals: totalCals,
       items: items
     }
+
     const iRef = doc(this.props.db, "recipes", this.state.id);
     await updateDoc(iRef, editedItem);
 
