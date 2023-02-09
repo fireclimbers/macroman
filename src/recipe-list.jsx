@@ -55,7 +55,28 @@ export default class RecipeList extends React.Component {
 
     return (
       <div className="container">
-        
+        <br/><br/>
+
+        <table className="table is-narrow is-fullwidth">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Cals</th>
+              <th>Servings</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.items.map((item,index) => {
+              return <tr>
+                <td><Link key={'link_'+index} to={"/macroman/recipes/"+item.id}>{item.name}</Link></td>
+                <td>{parseInt(parseFloat(item.totalCals)/parseInt(item.servings))}</td>
+                <td>{item.servings}</td>
+                <td>Remove</td>
+              </tr>
+            })}
+          </tbody>
+        </table>
 
         <nav className="level">
           <div className="level-left">
@@ -67,17 +88,13 @@ export default class RecipeList extends React.Component {
               </div>
             </div>
             <div className="level-item">
-              <button onClick={this.newRecipe.bind(this)} className="button">New</button>
+              <button onClick={this.newRecipe.bind(this)} className="button">Add</button>
             </div>
           </div>
         </nav>
-
-        <Link to="/macroman/foods">Food index</Link>
-        <br/><br/><br/>
-
-        {this.state.items.map((item,index) => {
-          return <Link key={'link_'+index} to={"/macroman/recipes/"+item.id}>{item.name}</Link>
-        })}
+        
+        <Link className="button" to="/macroman/foods" style={{marginRight:12}}>Food index</Link>
+        <button onClick={this.props.logout} className="button">Logout</button>
 
       </div>
     );

@@ -196,6 +196,11 @@ class RecipeClass extends React.Component {
     this.setState(produce((draft) => {
       const item = draft.items[idx];
 
+      if (!item.item.volume || item.item.volume === '') {
+        item[field] = value;
+        return;
+      }
+
       if (field === 'amount') {
         item[field] = value;
         let scale = value/item.item.amount;
@@ -274,32 +279,46 @@ class RecipeClass extends React.Component {
 
     return (
       <div className="container">
-        <Link to="/macroman/">Back</Link>
-        <p>{this.state.name}</p>
-        <nav className="level">
-          <div className="level-left">
-            <div className="level-item">
-              <div className="field">
-                <p className="control">
-                  <input value={this.state.servings} id="servings" onChange={this.handleChange} className="input" type="text" placeholder="Servings"/>
-                </p>
-              </div>
-            </div>
-            <div className="level-item">
-              <p className="subtitle is-5">
-                {(totalCals/(this.state.servings || 1)).toFixed(2)} per
-              </p>
-            </div>
+        <br/>
+        <Link className="button" to="/macroman/" style={{marginRight:12}}>Back</Link>
+        <button className="button" style={{marginRight:36}} onClick={this.save.bind(this)}>Save</button>
+        <span className="title" style={{marginRight:24}}>{this.state.name}</span>
+        <span className="subtitle is-5">{(totalCals/(this.state.servings || 1)).toFixed(2)} cals</span>
+        <br/><br/>
+
+        <div className="field has-addons">
+          <div className="control">
+            <button onClick={(e) => this.setState({servings: this.state.servings-1})} className="button" disabled={this.state.servings < 2}>
+              <span className="icon is-small">
+                <i className="fa fa-chevron-left"></i>
+              </span>
+            </button>
           </div>
-        </nav>
+          <div className="control">
+            <button className="button is-static">
+              {this.state.servings} {'serving'+(this.state.servings === 1 ? '': 's')}
+            </button>
+          </div>
+          <div className="control">
+            <button onClick={(e) => this.setState({servings: this.state.servings+1})} className="button">
+              <span className="icon is-small">
+                <i className="fa fa-chevron-right"></i>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        
+
 
 
         <div className={"dropdown is-fullwidth"+(this.state.searchResults.length > 0 ? ' is-active':'')}>
           <div className="dropdown-trigger">
-            <div className="field">
-              <p className="control is-expanded has-icons-right">
+            <div className="field has-addons">
+              <p className="control is-expanded">
                 <input onKeyPress={this.handleKeyPress.bind(this)} id="search" className="input is-fullwidth" autoComplete="off" type="text" placeholder={"Enter text"} value={this.state.search} onChange={this.handleChange}/>
-                <span className="icon is-right"><i className="fas fa-search"></i></span>
+              </p>
+              <p className="control">
                 <button onClick={this.querySearch.bind(this)} className="button">Search</button>
               </p>
             </div>
@@ -307,16 +326,18 @@ class RecipeClass extends React.Component {
           <div className="dropdown-menu" id="dropdown-menu" role="menu">
             <div className="dropdown-content">
               {this.state.searchResults.map((item,index) => {
-                return <button key={'search'+index} className="dropdown-item" onClick={this.addItem.bind(this,index)}>{item.name+' '+item.amount+' '+item.unit}</button>
+                return <a key={'search'+index} className="dropdown-item" onClick={this.addItem.bind(this,index)}>{item.name+' '+item.amount+' '+item.unit}</a>
               })}
             </div>
           </div>
         </div>
 
-        <button className="button" onClick={this.save.bind(this)}>Save</button>
+        
+
+        
 
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <table className="table is-fullwidth is-hoverable">
+          <table className="table is-fullwidth is-hoverable is-narrow">
             <thead>
               <tr>
                 <th>Name</th>
@@ -347,25 +368,45 @@ class RecipeClass extends React.Component {
                             provided.draggableProps.style
                           )}
                         >
-                          <td>
+                          <td style={this.state.editing === index ? {padding:0} : {}}>
                             {this.state.editing === index ?
                               <input value={item.name} onChange={this.handleItemChange.bind(this,'name',index)} className="input" type="text" placeholder="Name"/>
                               :
                               item.name
                             }
                           </td>
-                          <td>
+                          <td style={this.state.editing === index ? {padding:0} : {}}>
                             {this.state.editing === index ?
-                              <input value={item.amount} onChange={this.handleItemChangeConvert.bind(this,'amount',index)} className="input" type="text" placeholder="Amount"/>
+                              <div className="field has-addons">
+                                <p className="control">
+                                  <input value={item.amount} onChange={this.handleItemChangeConvert.bind(this,'amount',index)} className="input" type="text" placeholder="Amount"/>
+                                </p>
+                                <p className="control">
+                                  <button className="button is-static">
+                                    {item.item.unit}
+                                  </button>
+                                </p>
+                              </div>
+                              
                               :
                               item.amount+' '+item.item.unit
                             }
                           </td>
-                          <td>
-                            {this.state.editing === index ?
-                              <input value={item.volume} onChange={this.handleItemChangeConvert.bind(this,'volume',index)} className="input" type="text" placeholder="Volume"/>
+                          <td style={this.state.editing === index ? {padding:0} : {}}>
+                            {this.state.editing === index && (item.item.volume && item.item.volume !== '') ?
+                              <div className="field has-addons">
+                                <p className="control">
+                                  <input value={item.volume} onChange={this.handleItemChangeConvert.bind(this,'volume',index)} className="input" type="text" placeholder="Volume"/>
+                                </p>
+                                <p className="control">
+                                  <button className="button is-static">
+                                    {item.item.vol_unit || ''}
+                                  </button>
+                                </p>
+                              </div>
+                              
                               :
-                              item.volume+' '+item.item.vol_unit
+                              (item.volume || '')+' '+(item.item.vol_unit || '')
                             }
                           </td>
                           <td>{(parseInt(item.item.cals)*(parseInt(item.item.servings)/parseInt(item.item.totalservings))*(parseFloat(item.amount)/parseFloat(item.item.amount))).toFixed(2)}</td>

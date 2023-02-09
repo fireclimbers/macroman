@@ -71,7 +71,7 @@ export default class App extends React.Component {
       //console.log('signed out');
       //window.location.reload();
       //console.log(window.location.host);
-      window.location.href = window.location.protocol + "//" + window.location.host;
+      window.location.href = window.location.protocol + "//" + window.location.host+'/macroman/';
     }).catch((error) => {
       // An error happened.
       console.log(error);
@@ -99,7 +99,7 @@ export default class App extends React.Component {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path="/macroman/" element={<RecipeList db={this.state.db}/>} />
+          <Route path="/macroman/" element={<RecipeList db={this.state.db} logout={this.logout.bind(this)} />} />
           <Route path="/macroman/foods" element={<FoodList db={this.state.db}/>} />
           <Route path="/macroman/recipes/:recipeId" element={<Recipe db={this.state.db} />} />
           
