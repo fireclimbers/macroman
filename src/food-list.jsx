@@ -62,9 +62,10 @@ export default class FoodList extends React.Component {
     }));
   }
   async handleEditSubmit(editedItem) {
+    console.log(editedItem);
     const iRef = doc(this.props.db, "fooditems", this.state.editId);
     await updateDoc(iRef, editedItem);
-    
+    console.log('???');
     editedItem.id = this.state.editId;
 
     this.state.items[this.state.editing] = editedItem;

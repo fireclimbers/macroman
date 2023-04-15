@@ -43,7 +43,7 @@ class RecipeClass extends React.Component {
 
     this.state = {
       id: props.params.recipeId,
-      name: '',
+      name: '', // TODO make editable
       servings: '',
       text: '',
       items: [],
@@ -51,6 +51,8 @@ class RecipeClass extends React.Component {
       search: '',
       searchResults: [],
       editing: -1,
+
+      editingText: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
@@ -290,187 +292,213 @@ class RecipeClass extends React.Component {
         <br/>
         <Link className="button" to="/macroman/" style={{marginRight:12}}>Back</Link>
         <button className="button" style={{marginRight:36}} onClick={this.save.bind(this)}>Save</button>
-        <span className="title" style={{marginRight:24}}>{this.state.name}</span>
+        {this.state.editingText ?
+          <p className="control is-expanded">
+            <input id="name" className="input" autoComplete="off" type="text" placeholder={"Enter text"} value={this.state.name} onChange={this.handleChange}/>
+          </p> :
+          <span className="title" style={{marginRight:24}}>{this.state.name}</span>
+        }
         <span className="subtitle is-5">{(totalCals/(this.state.servings || 1)).toFixed(2)} cals</span>
         <br/><br/>
 
-        <div className="field has-addons">
-          <div className="control">
-            <button onClick={(e) => this.setState({servings: this.state.servings-1})} className="button" disabled={this.state.servings < 2}>
-              <span className="icon is-small">
-                <i className="fa fa-chevron-left"></i>
-              </span>
-            </button>
-          </div>
-          <div className="control">
-            <button className="button is-static">
-              {this.state.servings} {'serving'+(this.state.servings === 1 ? '': 's')}
-            </button>
-          </div>
-          <div className="control">
-            <button onClick={(e) => this.setState({servings: this.state.servings+1})} className="button">
-              <span className="icon is-small">
-                <i className="fa fa-chevron-right"></i>
-              </span>
-            </button>
-          </div>
-        </div>
+        <div className="columns">
 
-        
-
-
-
-        <div className={"dropdown is-fullwidth"+(this.state.searchResults.length > 0 ? ' is-active':'')}>
-          <div className="dropdown-trigger">
+          <div className="column">
             <div className="field has-addons">
-              <p className="control is-expanded">
-                <input onKeyPress={this.handleKeyPress.bind(this)} id="search" className="input is-fullwidth" autoComplete="off" type="text" placeholder={"Enter text"} value={this.state.search} onChange={this.handleChange}/>
-              </p>
-              <p className="control">
-                <button onClick={this.querySearch.bind(this)} className="button">Search</button>
-              </p>
+              <div className="control">
+                <button onClick={(e) => this.setState({servings: this.state.servings-1})} className="button" disabled={this.state.servings < 2}>
+                  <span className="icon is-small">
+                    <i className="fa fa-chevron-left"></i>
+                  </span>
+                </button>
+              </div>
+              <div className="control">
+                <button className="button is-static">
+                  {this.state.servings} {'serving'+(this.state.servings === 1 ? '': 's')}
+                </button>
+              </div>
+              <div className="control">
+                <button onClick={(e) => this.setState({servings: this.state.servings+1})} className="button">
+                  <span className="icon is-small">
+                    <i className="fa fa-chevron-right"></i>
+                  </span>
+                </button>
+              </div>
             </div>
+
+            
+
+
+
+            <div className={"dropdown is-fullwidth"+(this.state.searchResults.length > 0 ? ' is-active':'')}>
+              <div className="dropdown-trigger">
+                <div className="field has-addons">
+                  <p className="control is-expanded">
+                    <input onKeyPress={this.handleKeyPress.bind(this)} id="search" className="input is-fullwidth" autoComplete="off" type="text" placeholder={"Enter text"} value={this.state.search} onChange={this.handleChange}/>
+                  </p>
+                  <p className="control">
+                    <button onClick={this.querySearch.bind(this)} className="button">Search</button>
+                  </p>
+                </div>
+              </div>
+              <div className="dropdown-menu" id="dropdown-menu" role="menu">
+                <div className="dropdown-content">
+                  {this.state.searchResults.map((item,index) => {
+                    return <a key={'search'+index} className="dropdown-item" onClick={this.addItem.bind(this,index)}>{item.name+' '+item.amount+' '+item.unit}</a>
+                  })}
+                </div>
+              </div>
+            </div>
+
+            
+
+            
+
+            <DragDropContext onDragEnd={this.onDragEnd}>
+              <table className="table is-fullwidth is-hoverable is-narrow">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Vol</th>
+                    <th>Cals</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <Droppable droppableId="droppable">
+                  {(provided, snapshot) => (
+                    <tbody
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                      style={getListStyle(snapshot.isDraggingOver)}>
+                      {this.state.items.map((item, index) => (
+                        <Draggable key={'drag'+index} draggableId={'drag'+index} index={index} isDragDisabled={this.state.editing !== -1}>
+                          {(provided, snapshot) => (
+                            <tr
+                              className={item.visible ? '' : 'has-text-grey-lighter'}
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              style={getItemStyle(
+                                snapshot.isDragging,
+                                provided.draggableProps.style
+                              )}
+                            >
+                              <td style={this.state.editing === index ? {padding:0} : {}}>
+                                {this.state.editing === index ?
+                                  <input value={item.name} onChange={this.handleItemChange.bind(this,'name',index)} className="input" type="text" placeholder="Name"/>
+                                  :
+                                  item.name
+                                }
+                              </td>
+                              <td style={this.state.editing === index ? {padding:0} : {}}>
+                                {this.state.editing === index ?
+                                  <div className="field has-addons">
+                                    <p className="control">
+                                      <input value={item.amount} onChange={this.handleItemChangeConvert.bind(this,'amount',index)} className="input" type="text" placeholder="Amount"/>
+                                    </p>
+                                    <p className="control">
+                                      <button className="button is-static">
+                                        {item.item.unit}
+                                      </button>
+                                    </p>
+                                  </div>
+                                  
+                                  :
+                                  item.amount+' '+item.item.unit
+                                }
+                              </td>
+                              <td style={this.state.editing === index ? {padding:0} : {}}>
+                                {this.state.editing === index && (item.item.volume && item.item.volume !== '') ?
+                                  <div className="field has-addons">
+                                    <p className="control">
+                                      <input value={item.volume} onChange={this.handleItemChangeConvert.bind(this,'volume',index)} className="input" type="text" placeholder="Volume"/>
+                                    </p>
+                                    <p className="control">
+                                      <button className="button is-static">
+                                        {item.item.vol_unit || ''}
+                                      </button>
+                                    </p>
+                                  </div>
+                                  
+                                  :
+                                  (item.volume || '')+' '+(item.item.vol_unit || '')
+                                }
+                              </td>
+                              <td>{(parseInt(item.item.cals)*(parseInt(item.item.servings)/parseInt(item.item.totalservings))*(parseFloat(item.amount)/parseFloat(item.item.amount))).toFixed(2)}</td>
+                              
+                              <td>
+                                <p className="buttons" key={'edit'+index+'_'+this.state.editing}>
+                                  {this.state.editing !== index ? <button className="button is-small" onClick={(e) => this.setState({editing:index})}>
+                                    <span className="icon is-small has-text-danger">
+                                      <i className="fas fa-pen"></i>
+                                    </span>
+                                  </button> : <button className="button is-small" onClick={(e) => this.setState({editing:-1})}>
+                                    <span className="icon is-small has-text-danger">
+                                      <i className="fas fa-check"></i>
+                                    </span>
+                                  </button>}
+                                </p>
+                              </td>
+                              <td>
+                                <p className="buttons">
+                                  <button className="button is-small" onClick={this.toggleVisible.bind(this, index)}>
+                                    <span className={"icon is-small "+(item.visible ? '' : 'has-text-grey-lighter')}>
+                                      <i className="fas fa-eye"></i>
+                                    </span>
+                                  </button>
+                                </p>
+                              </td>
+                              <td>
+                                <p className="buttons">
+                                  <button className="button is-small" onClick={this.deleteItem.bind(this, index)}>
+                                    <span className="icon is-small has-text-danger">
+                                      <i className="fas fa-times"></i>
+                                    </span>
+                                  </button>
+                                </p>
+                              </td>
+                            </tr>
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder}
+                    </tbody>
+                  )}
+                </Droppable>
+                <tfoot>
+                <tr>
+                  <td>Total</td>
+                  <td></td>
+                  <td></td>
+                  <td>{totalCals.toFixed(2)}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tfoot>
+              </table>
+            </DragDropContext>
+
           </div>
-          <div className="dropdown-menu" id="dropdown-menu" role="menu">
-            <div className="dropdown-content">
-              {this.state.searchResults.map((item,index) => {
-                return <a key={'search'+index} className="dropdown-item" onClick={this.addItem.bind(this,index)}>{item.name+' '+item.amount+' '+item.unit}</a>
+          <div className="column is-5">
+            {this.state.editingText ? <div>
+              <button className="button" onClick={(e) => {this.setState({editingText: false}, () => this.save())}}>Confirm</button>
+              <br/>
+              <textarea className="textarea" value={this.state.text} onChange={(e) => this.setState({text:e.target.value})} placeholder="Enter text" rows="20"></textarea>
+            </div> : <div>
+              <button className="button" onClick={(e) => {this.setState({editingText: true})}}>Edit</button>
+              <br/>
+              {this.state.text.split('\n').map((item,index) => {
+                return [<span key={'pa'+index+'-1'}>{item}</span>,<br key={'pa'+index+'-2'}/>]
               })}
+
             </div>
+            }
           </div>
         </div>
-
-        
-
-        
-
-        <DragDropContext onDragEnd={this.onDragEnd}>
-          <table className="table is-fullwidth is-hoverable is-narrow">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Volume</th>
-                <th>Cals</th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <Droppable droppableId="droppable">
-              {(provided, snapshot) => (
-                <tbody
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}>
-                  {this.state.items.map((item, index) => (
-                    <Draggable key={'drag'+index} draggableId={'drag'+index} index={index} isDragDisabled={this.state.editing !== -1}>
-                      {(provided, snapshot) => (
-                        <tr
-                          className={item.visible ? '' : 'has-text-grey-lighter'}
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
-                        >
-                          <td style={this.state.editing === index ? {padding:0} : {}}>
-                            {this.state.editing === index ?
-                              <input value={item.name} onChange={this.handleItemChange.bind(this,'name',index)} className="input" type="text" placeholder="Name"/>
-                              :
-                              item.name
-                            }
-                          </td>
-                          <td style={this.state.editing === index ? {padding:0} : {}}>
-                            {this.state.editing === index ?
-                              <div className="field has-addons">
-                                <p className="control">
-                                  <input value={item.amount} onChange={this.handleItemChangeConvert.bind(this,'amount',index)} className="input" type="text" placeholder="Amount"/>
-                                </p>
-                                <p className="control">
-                                  <button className="button is-static">
-                                    {item.item.unit}
-                                  </button>
-                                </p>
-                              </div>
-                              
-                              :
-                              item.amount+' '+item.item.unit
-                            }
-                          </td>
-                          <td style={this.state.editing === index ? {padding:0} : {}}>
-                            {this.state.editing === index && (item.item.volume && item.item.volume !== '') ?
-                              <div className="field has-addons">
-                                <p className="control">
-                                  <input value={item.volume} onChange={this.handleItemChangeConvert.bind(this,'volume',index)} className="input" type="text" placeholder="Volume"/>
-                                </p>
-                                <p className="control">
-                                  <button className="button is-static">
-                                    {item.item.vol_unit || ''}
-                                  </button>
-                                </p>
-                              </div>
-                              
-                              :
-                              (item.volume || '')+' '+(item.item.vol_unit || '')
-                            }
-                          </td>
-                          <td>{(parseInt(item.item.cals)*(parseInt(item.item.servings)/parseInt(item.item.totalservings))*(parseFloat(item.amount)/parseFloat(item.item.amount))).toFixed(2)}</td>
-                          
-                          <td>
-                            <p className="buttons" key={'edit'+index+'_'+this.state.editing}>
-                              {this.state.editing !== index ? <button className="button is-small" onClick={(e) => this.setState({editing:index})}>
-                                <span className="icon is-small has-text-danger">
-                                  <i className="fas fa-pen"></i>
-                                </span>
-                              </button> : <button className="button is-small" onClick={(e) => this.setState({editing:-1})}>
-                                <span className="icon is-small has-text-danger">
-                                  <i className="fas fa-check"></i>
-                                </span>
-                              </button>}
-                            </p>
-                          </td>
-                          <td>
-                            <p className="buttons">
-                              <button className="button is-small" onClick={this.toggleVisible.bind(this, index)}>
-                                <span className={"icon is-small "+(item.visible ? '' : 'has-text-grey-lighter')}>
-                                  <i className="fas fa-eye"></i>
-                                </span>
-                              </button>
-                            </p>
-                          </td>
-                          <td>
-                            <p className="buttons">
-                              <button className="button is-small" onClick={this.deleteItem.bind(this, index)}>
-                                <span className="icon is-small has-text-danger">
-                                  <i className="fas fa-times"></i>
-                                </span>
-                              </button>
-                            </p>
-                          </td>
-                        </tr>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </tbody>
-              )}
-            </Droppable>
-            <tfoot>
-            <tr>
-              <td>Total</td>
-              <td></td>
-              <td></td>
-              <td>{totalCals.toFixed(2)}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tfoot>
-          </table>
-        </DragDropContext>
 
 
 

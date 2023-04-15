@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
 
 
 
@@ -11,7 +11,8 @@ export default class RecipeList extends React.Component {
 
     this.state = {
       name: '',
-      items: []
+      items: [],
+      isArchive: false
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -43,6 +44,29 @@ export default class RecipeList extends React.Component {
       console.error("Error adding document: ", e);
     }
   }
+  async archive(idx, e) {
+    // TODO Add archive=true to document
+    // Remove from normal list
+    const id = this.state.items[idx].id;
+    const iRef = doc(this.props.db, "recipes", id);
+    await updateDoc(iRef, {archive: !this.state.items[idx].archive});
+
+    this.state.items[idx].archive = !this.state.items[idx].archive;
+    this.setState(state => ({
+      items: this.state.items,
+    }));
+
+  }
+  async delete(idx, e) {
+    const id = this.state.items[idx].id;
+    const iRef = doc(this.props.db, "recipes", id);
+    await deleteDoc(iRef);
+
+    this.state.items.splice(idx, 1);
+    this.setState(state => ({
+      items: this.state.items,
+    }));
+  }
   render() {
 
     // TODO
@@ -64,15 +88,35 @@ export default class RecipeList extends React.Component {
               <th>Cals</th>
               <th>Servings</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {this.state.items.map((item,index) => {
+              if (!item.archive === this.state.isArchive) return null;
+
               return <tr>
                 <td><Link key={'link_'+index} to={"/macroman/recipes/"+item.id}>{item.name}</Link></td>
                 <td>{parseInt(parseFloat(item.totalCals)/parseInt(item.servings))}</td>
                 <td>{item.servings}</td>
-                <td>Remove</td>
+                <td>
+                  <p className="buttons">
+                    <button className="button is-small" onClick={this.archive.bind(this,index)}>
+                      <span className="icon is-small">
+                        <i className="fas fa-archive"></i>
+                      </span>
+                    </button>
+                  </p>
+                </td>
+                <td>
+                  <p className="buttons">
+                    <button className="button is-small" onClick={this.delete.bind(this,index)}>
+                      <span className="icon is-small has-text-danger">
+                        <i className="fas fa-trash-alt"></i>
+                      </span>
+                    </button>
+                  </p>
+                </td>
               </tr>
             })}
           </tbody>
@@ -94,6 +138,8 @@ export default class RecipeList extends React.Component {
         </nav>
         
         <Link className="button" to="/macroman/foods" style={{marginRight:12}}>Food index</Link>
+        <button className="button" style={{marginRight:12}} onClick={() => this.setState({isArchive: !this.state.isArchive})}>{this.state.isArchive ? 'Main':'Archive'}</button>
+        <Link className="button" to="/macroman/test" style={{marginRight:12}}>Test</Link>
         <button onClick={this.props.logout} className="button">Logout</button>
 
       </div>

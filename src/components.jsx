@@ -21,17 +21,17 @@ class ItemForm extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.editing !== this.props.editing) {
       this.setState({
-        name: this.props.item.name,
-        cals: this.props.item.cals,
-        protein: this.props.item.protein,
-        fat: this.props.item.fat,
-        carbs: this.props.item.carbs,
-        servings: this.props.item.servings,
-        totalservings: this.props.item.totalservings,
+        name: this.props.item.name || '',
+        cals: this.props.item.cals || '',
+        protein: this.props.item.protein || '0',
+        fat: this.props.item.fat || '0',
+        carbs: this.props.item.carbs || '0',
+        servings: this.props.item.servings || '1',
+        totalservings: this.props.item.totalservings || '1',
         amount: this.props.item.amount,
         unit: this.props.item.unit,
-        volume: this.props.item.volume,
-        vol_unit: this.props.item.vol_unit
+        volume: this.props.item.volume || '',
+        vol_unit: this.props.item.vol_unit || ''
       })
     }
   }

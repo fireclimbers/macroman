@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './login';
 import Recipe from './recipe';
 import RecipeList from './recipe-list';
+import RecipeTest from './recipe-test';
 import FoodList from './food-list';
 
 import { initializeApp } from "firebase/app";
@@ -101,6 +102,7 @@ export default class App extends React.Component {
         <Routes>
           <Route path="/macroman/" element={<RecipeList db={this.state.db} logout={this.logout.bind(this)} />} />
           <Route path="/macroman/foods" element={<FoodList db={this.state.db}/>} />
+          <Route path="/macroman/test" element={<RecipeTest db={this.state.db}/>} />
           <Route path="/macroman/recipes/:recipeId" element={<Recipe db={this.state.db} />} />
           
           <Route
