@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/macroman/static/css/main.34de6062.chunk.css",
-    "main.js": "/macroman/static/js/main.fe383e5a.chunk.js",
-    "main.js.map": "/macroman/static/js/main.fe383e5a.chunk.js.map",
+    "main.js": "/macroman/static/js/main.1c3f470f.chunk.js",
+    "main.js.map": "/macroman/static/js/main.1c3f470f.chunk.js.map",
     "runtime-main.js": "/macroman/static/js/runtime-main.19d84862.js",
     "runtime-main.js.map": "/macroman/static/js/runtime-main.19d84862.js.map",
     "static/js/2.89667877.chunk.js": "/macroman/static/js/2.89667877.chunk.js",
     "static/js/2.89667877.chunk.js.map": "/macroman/static/js/2.89667877.chunk.js.map",
     "index.html": "/macroman/index.html",
-    "precache-manifest.7f6231324113c388a0bd78ed389c6d46.js": "/macroman/precache-manifest.7f6231324113c388a0bd78ed389c6d46.js",
+    "precache-manifest.36b310507ebe5dac5d23df35ade2c335.js": "/macroman/precache-manifest.36b310507ebe5dac5d23df35ade2c335.js",
     "service-worker.js": "/macroman/service-worker.js",
     "static/css/main.34de6062.chunk.css.map": "/macroman/static/css/main.34de6062.chunk.css.map"
   },
@@ -16,6 +16,6 @@
     "static/js/runtime-main.19d84862.js",
     "static/js/2.89667877.chunk.js",
     "static/css/main.34de6062.chunk.css",
-    "static/js/main.fe383e5a.chunk.js"
+    "static/js/main.1c3f470f.chunk.js"
   ]
 }
