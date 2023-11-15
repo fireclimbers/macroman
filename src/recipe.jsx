@@ -287,6 +287,29 @@ class RecipeClass extends React.Component {
       return sum;
     }, 0);
 
+    var totalProtein = this.state.items.reduce(function (sum, item_) {
+      let item = item_.item;
+      if (item_.visible)
+        return sum + (parseInt(item.protein)*(parseInt(item.servings)/parseInt(item.totalservings))*(parseFloat(item_.amount)/parseFloat(item.amount)));
+      return sum;
+    }, 0);
+
+    var totalFat = this.state.items.reduce(function (sum, item_) {
+      let item = item_.item;
+      if (item_.visible)
+        return sum + (parseInt(item.fat)*(parseInt(item.servings)/parseInt(item.totalservings))*(parseFloat(item_.amount)/parseFloat(item.amount)));
+      return sum;
+    }, 0);
+
+    var totalCarbs = this.state.items.reduce(function (sum, item_) {
+      let item = item_.item;
+      if (item_.visible)
+        return sum + (parseInt(item.carbs)*(parseInt(item.servings)/parseInt(item.totalservings))*(parseFloat(item_.amount)/parseFloat(item.amount)));
+      return sum;
+    }, 0);
+
+    var totalGs = totalProtein + totalFat + totalCarbs;
+
     return (
       <div className="container">
         <br/>
@@ -298,7 +321,7 @@ class RecipeClass extends React.Component {
           </p> :
           <span className="title" style={{marginRight:24}}>{this.state.name}</span>
         }
-        <span className="subtitle is-5">{(totalCals/(this.state.servings || 1)).toFixed(2)} cals</span>
+        <span className="subtitle is-5">{(totalCals/(this.state.servings || 1)).toFixed(2)} cals ({(totalProtein/(this.state.servings || 1)).toFixed(0)}/{(totalFat/(this.state.servings || 1)).toFixed(0)}/{(totalCarbs/(this.state.servings || 1)).toFixed(0)}) [{(100*totalProtein/totalGs).toFixed(0)}%/{(100*totalFat/totalGs).toFixed(0)}%/{(100*totalCarbs/totalGs).toFixed(0)}%]</span>
         <br/><br/>
 
         <div className="columns">
@@ -362,6 +385,9 @@ class RecipeClass extends React.Component {
                     <th>Amount</th>
                     <th>Vol</th>
                     <th>Cals</th>
+                    <th>P</th>
+                    <th>F</th>
+                    <th>C</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -428,6 +454,10 @@ class RecipeClass extends React.Component {
                                 }
                               </td>
                               <td>{(parseInt(item.item.cals)*(parseInt(item.item.servings)/parseInt(item.item.totalservings))*(parseFloat(item.amount)/parseFloat(item.item.amount))).toFixed(2)}</td>
+
+                              <td>{(parseInt(item.item.protein)*(parseInt(item.item.servings)/parseInt(item.item.totalservings))*(parseFloat(item.amount)/parseFloat(item.item.amount))).toFixed(2)}</td>
+                              <td>{(parseInt(item.item.fat)*(parseInt(item.item.servings)/parseInt(item.item.totalservings))*(parseFloat(item.amount)/parseFloat(item.item.amount))).toFixed(2)}</td>
+                              <td>{(parseInt(item.item.carbs)*(parseInt(item.item.servings)/parseInt(item.item.totalservings))*(parseFloat(item.amount)/parseFloat(item.item.amount))).toFixed(2)}</td>
                               
                               <td>
                                 <p className="buttons" key={'edit'+index+'_'+this.state.editing}>
@@ -474,6 +504,9 @@ class RecipeClass extends React.Component {
                   <td></td>
                   <td></td>
                   <td>{totalCals.toFixed(2)}</td>
+                  <td>{totalProtein.toFixed(2)}</td>
+                  <td>{totalFat.toFixed(2)}</td>
+                  <td>{totalCarbs.toFixed(2)}</td>
                   <td></td>
                   <td></td>
                   <td></td>

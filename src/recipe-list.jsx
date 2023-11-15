@@ -67,6 +67,20 @@ export default class RecipeList extends React.Component {
       items: this.state.items,
     }));
   }
+  async changeType(idx, e) {
+    const val = e.target.value;
+    // TODO Add archive=true to document
+    // Remove from normal list
+    const id = this.state.items[idx].id;
+    const iRef = doc(this.props.db, "recipes", id);
+    await updateDoc(iRef, { type: val });
+
+    this.state.items[idx].type = val;
+    this.setState(state => ({
+      items: this.state.items,
+    }));
+
+  }
   render() {
 
     // TODO
@@ -85,6 +99,7 @@ export default class RecipeList extends React.Component {
           <thead>
             <tr>
               <th>Name</th>
+              <th>Type</th>
               <th>Cals</th>
               <th>Servings</th>
               <th></th>
@@ -97,6 +112,16 @@ export default class RecipeList extends React.Component {
 
               return <tr>
                 <td><Link key={'link_'+index} to={"/macroman/recipes/"+item.id}>{item.name}</Link></td>
+                <td><div className="select is-small">
+  <select onChange={(e) => this.changeType(index, e)} value={item.type || ''}>
+    <option value="" disabled>...</option>
+    <option value="Quick">Quick</option>
+    <option value="Weekend">Weekend</option>
+    <option value="Prep">Prep</option>
+    <option value="Large batch">Large batch</option>
+    <option value="Dessert/Snack">Dessert/Snack</option>
+  </select>
+</div></td>
                 <td>{parseInt(parseFloat(item.totalCals)/parseInt(item.servings))}</td>
                 <td>{item.servings}</td>
                 <td>
