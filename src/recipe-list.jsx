@@ -118,6 +118,7 @@ export default class RecipeList extends React.Component {
     <option value="Quick">Quick</option>
     <option value="Weekend">Weekend</option>
     <option value="Prep">Prep</option>
+    <option value="Fit">Fit</option>
     <option value="Large batch">Large batch</option>
     <option value="Dessert/Snack">Dessert/Snack</option>
   </select>
